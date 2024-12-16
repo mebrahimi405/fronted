@@ -1,10 +1,27 @@
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import logo from "./logo.svg";
+import Login from "./containers/login";
+import SignUp from "./containers/signUp";
 import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      {/* <div class="login body d-flex flex-column justify-content-center align-items-center w-100">
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signUp" element={<SignUp />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
+
+// <div className="App">
+
+{
+  /* <div class="login body d-flex flex-column justify-content-center align-items-center w-100">
         <div class="w-30 border py-5 px-3 rounded-1 d-flex flex-column gap-4">
           <h1 class="fs-4">ورود</h1>
           <form class="form-login d-flex flex-column gap-2">
@@ -31,12 +48,9 @@ function App() {
             حساب کاربری دارید؟ برای ورود اینجا کلیک کنید.
           </a>
         </div>
-      </div> */}
-    </div>
-  );
+      </div> */
 }
-
-export default App;
+// </div>
 
 // ////////////////////////////////////////////////////////////////// get
 // import React, { useEffect, useState } from "react";
