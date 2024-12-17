@@ -2,44 +2,56 @@ import React, { useState } from "react";
 import logo from "../assets/images/logo.png";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [formData, setFormData] = useState({
+    phone: "",
+    password: "",
+  });
 
-  // تابع برای ارسال داده‌ها به سرور
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  // مدیریت تغییرات فرم
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  // ارسال فرم
   const handleSubmit = async (event) => {
-    event.preventDefault(event); // جلوگیری از ریفرش شدن صفحه
-
-    const userData = {
-      email: email,
-      phone: phone,
-    };
+    event.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccess("");
 
     try {
-      const response = await fetch("http://your-backend-url.com/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
+      const response = await fetch(
+        process.env.REACT_APP_API_URL + "/api/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Data received from server:", data);
-      } else {
-        console.error("Error in sending data");
-      }
+      if (!response.ok) throw new Error("خطا در ارسال اطلاعات!");
+
+      const data = await response.json();
+      setSuccess("ورود با موفقیت انجام شد!");
+      console.log("Server Response:", data);
     } catch (error) {
-      console.error("Error:", error);
+      setError(error.message || "مشکلی پیش آمده است!");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div class="login w-100 vh-100 d-flex justify-content-center align-items-center bg-white">
-      <div className="login-container w-75 h-75 bg-light rounded-4 d-flex overflow-hidden">
-        <div class="login-content d-flex flex-column justify-content-center align-items-stretch px-5 gap-3">
+    <div className="login w-100 vh-100 d-flex justify-content-center align-items-center bg-white">
+      <div className="container-gradiant login-container w-75 h-75 bg-light rounded-4 d-flex overflow-hidden">
+        <div className="login-content d-flex flex-column justify-content-center align-items-stretch px-5 gap-3">
           <img
-            class="align-self-center"
+            className="align-self-center"
             src={logo}
             alt="logo"
             width={"50%"}
@@ -48,33 +60,49 @@ function Login() {
 
           <h1 className="fs-5 text-center">به کامسی خوش آمدید.</h1>
 
-          <form className="d-flex flex-column gap-1">
-            <label htmlFor="name">شماره تلفن:</label>
+          <form className="d-flex flex-column gap-1" onSubmit={handleSubmit}>
+            <label htmlFor="phone-number">شماره تلفن:</label>
             <input
-              class="p-2 border-0"
-              type="text"
-              id="name"
-              placeholder="شماره تلفن"
+              className="p-2 border-0"
+              type="tel"
+              id="phone-number"
+              name="phone"
+              placeholder="09*********"
+              value={formData.phone}
+              onChange={handleChange}
             />
 
             <label htmlFor="password">رمز عبور:</label>
             <input
-              class="p-2 border-0"
+              className="p-2 border-0"
               type="password"
               id="password"
+              name="password"
               placeholder="رمز عبور خود را وارد نمایید"
+              value={formData.password}
+              onChange={handleChange}
             />
+
+            <button
+              type="submit"
+              className="mt-3 login-button py-3 border-0 rounded-2 bg-green"
+              disabled={loading}
+            >
+              {loading ? "در حال ارسال..." : "ورود"}
+            </button>
           </form>
 
-          <a href="#">رمز عبور خود را فراموش کرده اید؟</a>
+          {error && <p className="text-danger text-center">{error}</p>}
+          {success && <p className="text-success text-center">{success}</p>}
 
-          <button className="py-2 border-0 bg-green" onClick={handleSubmit}>
-            ورود
-          </button>
-
-          <a href="#">حساب کاربری ندارید؟ ساخت حساب کاربری</a>
+          <a href="#" className="text-decoration-none">
+            رمز عبور خود را فراموش کرده‌اید؟
+          </a>
+          <a href="#" className="text-decoration-none">
+            حساب کاربری ندارید؟ ساخت حساب کاربری
+          </a>
         </div>
-        <div class="login-pic"></div>
+        <div className="login-pic"></div>
       </div>
     </div>
   );

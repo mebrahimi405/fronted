@@ -85,6 +85,44 @@ input:focus {
   width: 30%;
 }
 
-.login-container {
+.container-gradiant {
   background-image: linear-gradient(#5abf384f, #8e3e984f);
+}
+
+.signup-container {
+  height: 85vh;
+}
+
+label {
+  font-size: 12px;
+}
+
+input::placeholder {
+  font-size: 10px;
+}
+
+.send-code {
+  align-self: stretch;
+  /* transform: translateY(-106.5%); */
+  border: none;
+  color: #fff;
+  width: 25%;
+}
+
+.input-code {
+  width: 75%;
+  justify-content: space-between;
+}
+
+.code:focus {
+  border: none;
+  outline: none;
+}
+
+.signup-button {
+  color: #fff;
+}
+
+.login-button {
+  color: #fff;
 }
