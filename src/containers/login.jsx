@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import logo from "../assets/images/logo.png";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -95,12 +97,14 @@ function Login() {
           {error && <p className="text-danger text-center">{error}</p>}
           {success && <p className="text-success text-center">{success}</p>}
 
-          <a href="#" className="text-decoration-none">
-            رمز عبور خود را فراموش کرده‌اید؟
-          </a>
-          <a href="#" className="text-decoration-none">
-            حساب کاربری ندارید؟ ساخت حساب کاربری
-          </a>
+          {/* <a href="#" className="text-decoration-none">
+           رمز عبور خود را فراموش کرده‌اید؟
+          </a> */}
+
+          <Link to="/forgetPass">رمز عبور خود را فراموش کرده‌اید؟</Link>
+          <Link to="/signUp">
+            حساب کاربری ندارید؟ برای ساخت حساب کاربری اینجا کلیک کنید.
+          </Link>
         </div>
         <div className="login-pic"></div>
       </div>

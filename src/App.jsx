@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import logo from "./logo.svg";
 import Login from "./containers/login";
 import SignUp from "./containers/signUp";
+import ForgetPass from "./containers/forgetPass";
 import "./App.css";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signUp" element={<SignUp />} />
+        <Route path="/forgetpass" element={<ForgetPass />} />
       </Routes>
     </Router>
   );

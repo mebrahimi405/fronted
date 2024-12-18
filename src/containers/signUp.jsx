@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import axios from "axios";
 import logo from "../assets/images/logo.png";
@@ -19,6 +20,7 @@ function SignUp() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    console.log({ formData });
   };
 
   // ارسال کد تایید
@@ -155,9 +157,10 @@ function SignUp() {
           {error && <p className="text-danger text-center">{error}</p>}
           {success && <p className="text-success text-center">{success}</p>}
 
-          <a href="#" className="text-decoration-none text-center">
+          {/* <a href="{login}" className="text-decoration-none text-center">
             حساب کاربری دارید؟ برای ورود اینجا کلیک کنید
-          </a>
+          </a> */}
+          <Link to="/login">حساب کاربری دارید؟ برای ورود اینجا کلیک کنید.</Link>
         </div>
         <div className="login-pic"></div>
       </div>

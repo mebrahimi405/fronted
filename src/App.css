@@ -7,6 +7,10 @@
     url(../src/assets/fonts/IRANSans\(FaNum\)_UltraLight.ttf);
 }
 
+*::selection {
+  background-color: #5abf38;
+}
+
 html {
   font-size: 62.5%;
 }
